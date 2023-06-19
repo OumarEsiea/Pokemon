@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' pokeapi.co data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' https://pokeapi.co/api/v2/pokemon/;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <script src="vue.js"></script>
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app" id="app">
+            <div class="Pokemon list">
+                <h1>Apache Cordova <p>{{ message }}</p></h1>
+                <li v-for="item in listItems" :key="item.name"> <img :src="item.url" :alt="item.name"/></li>
+                <button @click="get10nextPokemons">Charger plus de Pokémons</button>
+            </div>
+            <div class="PokemonStats">
+                <li v-for="item in Description"> {{item.stat.name}} : {{item.base_stat}}</li>
+            </div>
+        </div>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>
