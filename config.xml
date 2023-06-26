@@ -6,8 +6,6 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-    <allow-intent href="http://*/*" />
+     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <access origin="https://pokeapi.co/*"/>
-    <allow-navigation href="https://pokeapi.co/*"/>
 </widget>
