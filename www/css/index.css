@@ -106,6 +106,7 @@ li {
 
 .Pokemon.list {
     display: block;
+    justify-content: space-between;
   }
   
   .PokemonStats {
