@@ -17,13 +17,18 @@
             <div class="Pokemon list">
                 <h1>Apache Cordova <p>{{ message }}</p></h1>
                 <ul>
-                    <li v-for="item in listItems" :key="item.name"> <img :src="item.url" :alt="item.name"/></li>
+                    <li v-for="item in listItems" :key="item.name"> 
+                        <img :src="item.url" :alt="item.name"/>
+                    </li>
                 </ul>
-                <button @click="get10nextPokemons">Charger plus de Pokémons</button>
+                <button v-if="isTrue == true" @click="get10PreviousPokemons">10 précédents</button>
+                <button @click="get10nextPokemons">10 prochains</button>
             </div>
             <div class="PokemonStats">
             <ul>
-                <li v-for="item in Description"> {{item.stat.name}} : {{item.base_stat}}</li>
+                <li v-for="item in Description"> 
+                <img :src="item.url">
+                {{item.stat.name}} : {{item.base_stat}}</li>
             </ul>
             </div>
         </div>

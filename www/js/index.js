@@ -29,7 +29,7 @@ function onDeviceReady() {
         data(){
             return{
                 message: 'Liste de Pokémons',
-                isTrue : true,
+                isTrue :"",
                 isFalse : false,
                 listItems: [],
                 Description : [],
@@ -54,6 +54,12 @@ function onDeviceReady() {
               
             async get10nextPokemons(){
                 this.offset += 10;
+                await this.getData();
+                this.isTrue = true;
+            },
+
+            async get10PreviousPokemons(){
+                this.offset -=10;
                 await this.getData();
             },
         },
