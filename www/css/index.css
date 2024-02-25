@@ -107,10 +107,12 @@ li {
 .Pokemon.list {
     display: block;
     justify-content: space-between;
+    width: 25%;
   }
   
   .PokemonStats {
     text-align: center;
     padding-top: 100px;
+    width: 50%;
   }
   

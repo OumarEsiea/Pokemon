@@ -29,24 +29,34 @@ function onDeviceReady() {
         data(){
             return{
                 message: 'Liste de Pokémons',
+                Description : [],
+                offset:0,
+                ShowDesc : false,
                 isTrue :"",
                 isFalse : false,
-                listItems: [],
-                Description : [],
-                offset:0
+                PockemonChoisi : null
             }
         },
         methods: {
             async getData() {
-                fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${this.offset}&limit='20'`)
+                fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${this.offset}&limit='${10}'`)
                 .then(res => res.json())
                 .then(finalRes => {
-                this.listItems = finalRes.results;
+                
                 finalRes.results.forEach(pokemon =>{
                     fetch(pokemon.url)
                     .then(res2 => res2.json())
                     .then(finalRes2 => {
-                        this.Description = finalRes2.stats
+                        console.log(finalRes2)
+                        const abilities = {}
+                        abilities.Nom = finalRes2.name
+                        abilities.HP = finalRes2.stats[0].base_stat
+                        abilities.Capacites = finalRes2.moves[0].move.name
+                        abilities.Weight = finalRes2.weight
+                        abilities.Ability_name = finalRes2.abilities[0].ability.name
+                        abilities.ImGSrc = finalRes2.sprites.front_default
+                        this.Description.push(abilities)
+                        console.log(abilities)
                     })
                 })
                 });
@@ -55,13 +65,18 @@ function onDeviceReady() {
             async get10nextPokemons(){
                 this.offset += 10;
                 await this.getData();
-                this.isTrue = true;
             },
 
             async get10PreviousPokemons(){
                 this.offset -=10;
                 await this.getData();
+                this.isTrue = true;
             },
+
+            showDescription(pokemon){
+                this.ShowDesc = true
+                this.PockemonChoisi = pokemon
+            }
         },
         mounted() {
             this.getData()
