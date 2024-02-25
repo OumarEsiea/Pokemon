@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 
-<html lang="fr">
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' pokeapi.co data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' https://pokeapi.co/api/v2/pokemon/;">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' pokeapi.co data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' raw.githubusercontent.com data: content:;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
@@ -13,23 +12,24 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app" id="app">
+        <div class="app" id="app" style="width: 100%;">
             <div class="Pokemon list">
+                <img src="/www/img/logo.png" class="blink">
                 <h1>Apache Cordova <p>{{ message }}</p></h1>
                 <ul>
-                    <li v-for="item in listItems" :key="item.name"> 
-                        <img :src="item.url" :alt="item.name"/>
+                    <li v-for="item in Description"> 
+                        <img :src="item.ImGSrc" :alt="item.Nom" @click="showDescription(item)"/>
                     </li>
                 </ul>
                 <button v-if="isTrue == true" @click="get10PreviousPokemons">10 précédents</button>
                 <button @click="get10nextPokemons">10 prochains</button>
             </div>
             <div class="PokemonStats">
-            <ul>
-                <li v-for="item in Description"> 
-                <img :src="item.url">
-                {{item.stat.name}} : {{item.base_stat}}</li>
-            </ul>
+                <div v-if="PockemonChoisi">
+                <img :src="item.ImGSrc"> <br>
+                <p>{{PockemonChoisi.abilities}}</p>
+                </li>
+            </div>
             </div>
         </div>
         <script src="cordova.js"></script>
