@@ -100,19 +100,24 @@ h1 {
     }
 }
 
+#app{
+    display: flex;
+    justify-content: space-between;
+}
+
 li {
     list-style-type: none;
 }
 
 .Pokemon.list {
-    display: block;
-    justify-content: space-between;
-    width: 25%;
-  }
-  
-  .PokemonStats {
-    text-align: center;
-    padding-top: 100px;
     width: 50%;
   }
   
+  .PokemonStats {
+    margin-top: 20px;
+    width: 50%;
+  }
+  
+  .PokemonStats img {
+    width: 50%;
+  }
