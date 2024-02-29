@@ -12,23 +12,27 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app" id="app" style="width: 100%;">
+        <div class="app" id="app">
             <div class="Pokemon list">
                 <img src="/www/img/logo.png" class="blink">
                 <h1>Apache Cordova <p>{{ message }}</p></h1>
                 <ul>
-                    <li v-for="item in Description"> 
-                        <img :src="item.ImGSrc" :alt="item.Nom" @click="showDescription(item)"/>
+                    <li v-for="item in Description" @click="showDescription(item)"> 
+                        <img :src="item.ImGSrc" :alt="item.Nom"/>
+                        {{item.Nom}}
                     </li>
                 </ul>
-                <button v-if="isTrue == true" @click="get10PreviousPokemons">10 précédents</button>
+                <button :disabled="isTrue != true" @click="get10PreviousPokemons">10 précédents</button>
                 <button @click="get10nextPokemons">10 prochains</button>
             </div>
             <div class="PokemonStats">
                 <div v-if="PockemonChoisi">
-                <img :src="item.ImGSrc"> <br>
-                <p>{{PockemonChoisi.abilities}}</p>
-                </li>
+                <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi)" id="Vibration"> <br>
+                   Nom : {{PockemonChoisi.Nom}} <br>
+                   HP : {{PockemonChoisi.HP}} <br>
+                   Capacites : {{PockemonChoisi.Capacites}} <br>
+                   Weight : {{PockemonChoisi.Weight}}<br>
+                   Ability : {{PockemonChoisi.Ability_name}}
             </div>
             </div>
         </div>

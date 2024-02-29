@@ -34,52 +34,83 @@ function onDeviceReady() {
                 ShowDesc : false,
                 isTrue :"",
                 isFalse : false,
-                PockemonChoisi : null
+                PockemonChoisi : null,
+                limit : 10
             }
         },
         methods: {
             async getData() {
-                fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${this.offset}&limit='${10}'`)
+                fetch(`https://pokeapi.co/api/v2/pokemon/?offset=${this.offset}&limit=${this.limit}`)
                 .then(res => res.json())
                 .then(finalRes => {
-                
-                finalRes.results.forEach(pokemon =>{
-                    fetch(pokemon.url)
-                    .then(res2 => res2.json())
-                    .then(finalRes2 => {
-                        console.log(finalRes2)
-                        const abilities = {}
-                        abilities.Nom = finalRes2.name
-                        abilities.HP = finalRes2.stats[0].base_stat
-                        abilities.Capacites = finalRes2.moves[0].move.name
-                        abilities.Weight = finalRes2.weight
-                        abilities.Ability_name = finalRes2.abilities[0].ability.name
-                        abilities.ImGSrc = finalRes2.sprites.front_default
-                        this.Description.push(abilities)
-                        console.log(abilities)
+                    this.Description = []
+                    finalRes.results.forEach(pokemon =>{
+                        fetch(pokemon.url)
+                            .then(res2 => res2.json())
+                            .then(finalRes2 => {
+                                console.log(finalRes2)
+                                const abilities = {}
+                                abilities.Nom = finalRes2.name
+                                abilities.HP = finalRes2.stats[0].base_stat
+                                abilities.Capacites = finalRes2.moves[0].move.name
+                                abilities.Weight = finalRes2.weight
+                                abilities.Ability_name = finalRes2.abilities[0].ability.name
+                                abilities.ImGSrc = finalRes2.sprites.front_default
+                                abilities.ImgArtwork = finalRes2.sprites.other["official-artwork"].front_default
+                                abilities.Cri = finalRes2.cries
+                            this.Description.push(abilities)
                     })
                 })
                 });
               },
               
             async get10nextPokemons(){
-                this.offset += 10;
-                await this.getData();
-            },
-
-            async get10PreviousPokemons(){
-                this.offset -=10;
+                this.offset += this.limit;
                 await this.getData();
                 this.isTrue = true;
             },
 
+            async get10PreviousPokemons(){
+                if (this.offset >= this.limit) {
+                    this.offset -= this.limit;
+                await this.getData();
+            }
+        },
+
             showDescription(pokemon){
                 this.ShowDesc = true
                 this.PockemonChoisi = pokemon
-            }
+            },
+
+            PokemonCry(pokemon){                
+                var audio = new Audio(`/www/Audio/${pokemon.Nom}.ogg`)
+                audio.play()
+                this.Vibrate()
+            },
+
+            Vibrate(){
+                let element = document.getElementById('Vibration');
+                let posX = 0;
+                let posY = 0;
+
+                function vibrate() {
+                    posX = Math.floor(Math.random() * 5) - 2;
+                    posY = Math.floor(Math.random() * 5) - 2;
+                    element.style.transform = `translate(${posX}px, ${posY}px)`;
+                }
+
+                function stopVibration() {
+                    clearInterval(interval);
+                    element.style.transform = 'translate(0, 0)';
+                }
+
+                let interval = setInterval(vibrate, 50);
+                setTimeout(stopVibration, 2000);
+            }  
         },
+
         mounted() {
-            this.getData()
+            this.getData()    
           }
     })
     myapp.mount('#app')
