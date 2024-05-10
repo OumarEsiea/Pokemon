@@ -9,12 +9,12 @@
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/index.css">
         <script src="vue.js"></script>
-        <title>Hello World</title>
+        <title>Pokemon</title>
     </head>
     <body>
         <div class="app" id="app">
             <div class="Pokemon list">
-                <img src="/www/img/logo.png" class="blink">
+              <!---  <img src="/www/img/logo.png" class="blink">-->
                 <h1>Apache Cordova <p>{{ message }}</p></h1>
                 <ul>
                     <li v-for="item in Description" @click="showDescription(item)"> 
@@ -26,14 +26,24 @@
                 <button @click="get10nextPokemons">10 prochains</button>
             </div>
             <div class="PokemonStats">
-                <div v-if="PockemonChoisi">
-                <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi)" id="Vibration"> <br>
-                   Nom : {{PockemonChoisi.Nom}} <br>
-                   HP : {{PockemonChoisi.HP}} <br>
-                   Capacites : {{PockemonChoisi.Capacites}} <br>
-                   Weight : {{PockemonChoisi.Weight}}<br>
-                   Ability : {{PockemonChoisi.Ability_name}}
-            </div>
+                <div v-if="PockemonChoisi" class="PokemonCard">
+                    <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi)" id="Vibration"> <br>
+                    Nom : {{PockemonChoisi.Nom}} <br>
+                    HP : {{PockemonChoisi.HP}} <br>
+                    Capacites : {{PockemonChoisi.Capacites}} <br>
+                    Weight : {{PockemonChoisi.Weight}}<br>
+                    Ability : {{PockemonChoisi.Ability_name}} <br>
+                    Id : {{PockemonChoisi.id}}
+                </div>
+                   <div v-if="IsEvolution" class="Evolutions">
+                    <span style="color: black;font-weight: bold;">Evolutions</span><br>
+                    <ul>
+                        <li v-for="elem in Evolution" @click="PokemonCry(elem)" style="background-color: aqua;">
+                            {{elem.Nom}}
+                            <img :src="elem.ImGSrc">
+                        </li>
+                    </ul>   
+                    </div>
             </div>
         </div>
         <script src="cordova.js"></script>

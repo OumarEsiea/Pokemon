@@ -33,9 +33,10 @@ function onDeviceReady() {
                 offset:0,
                 ShowDesc : false,
                 isTrue :"",
-                isFalse : false,
                 PockemonChoisi : null,
-                limit : 10
+                limit : 10,
+                IsEvolution : false,
+                Evolution : []
             }
         },
         methods: {
@@ -58,6 +59,7 @@ function onDeviceReady() {
                                 abilities.ImGSrc = finalRes2.sprites.front_default
                                 abilities.ImgArtwork = finalRes2.sprites.other["official-artwork"].front_default
                                 abilities.Cri = finalRes2.cries
+                                abilities.id = finalRes2.id
                             this.Description.push(abilities)
                     })
                 })
@@ -80,10 +82,15 @@ function onDeviceReady() {
             showDescription(pokemon){
                 this.ShowDesc = true
                 this.PockemonChoisi = pokemon
+                this.FindEvolution(pokemon)
             },
 
             PokemonCry(pokemon){                
-                var audio = new Audio(`/www/Audio/${pokemon.Nom}.ogg`)
+                
+                if (pokemon.id == 1){
+                    var audio = new Audio(`/www/Audio/${pokemon.id}.ogg`)
+                }
+                else var audio = new Audio(`/www/Audio/Cri_00${pokemon.id}_DP.ogg`)
                 audio.play()
                 this.Vibrate()
             },
@@ -106,6 +113,16 @@ function onDeviceReady() {
 
                 let interval = setInterval(vibrate, 50);
                 setTimeout(stopVibration, 2000);
+            },
+
+            FindEvolution(pokemon){
+                let capacite = pokemon.Ability_name
+                let id = pokemon.id
+                this.Evolution = this.Description.filter(elem => capacite == elem.Ability_name && elem.id != id)
+                
+                    this.IsEvolution = true
+            
+               console.log(this.Evolution)
             }  
         },
 

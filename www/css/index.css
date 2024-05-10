@@ -118,6 +118,17 @@ li {
     width: 50%;
   }
   
-  .PokemonStats img {
-    width: 50%;
+  .Evolutions{
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style: none;
+  }
+
+  .Evolutions ul {
+    display: flex;
+    gap: 20px;
+  }
+
+  .Evolutions img {
+        width: 100%;
   }
