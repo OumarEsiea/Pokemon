@@ -49,18 +49,18 @@ function onDeviceReady() {
                         fetch(pokemon.url)
                             .then(res2 => res2.json())
                             .then(finalRes2 => {
-                                console.log(finalRes2)
                                 const abilities = {}
                                 abilities.Nom = finalRes2.name
                                 abilities.HP = finalRes2.stats[0].base_stat
                                 abilities.Capacites = finalRes2.moves[0].move.name
                                 abilities.Weight = finalRes2.weight
-                                abilities.Ability_name = finalRes2.abilities[0].ability.name
+                                abilities.Ability_name = finalRes2.abilities[0].ability.name,
                                 abilities.ImGSrc = finalRes2.sprites.front_default
                                 abilities.ImgArtwork = finalRes2.sprites.other["official-artwork"].front_default
                                 abilities.Cri = finalRes2.cries
                                 abilities.id = finalRes2.id
                             this.Description.push(abilities)
+                            console.log(abilities)
                     })
                 })
                 });
@@ -85,18 +85,18 @@ function onDeviceReady() {
                 this.FindEvolution(pokemon)
             },
 
-            PokemonCry(pokemon){                
+            PokemonCry(pokemon,id){                
                 
                 if (pokemon.id == 1){
                     var audio = new Audio(`/www/Audio/${pokemon.id}.ogg`)
                 }
                 else var audio = new Audio(`/www/Audio/Cri_00${pokemon.id}_DP.ogg`)
                 audio.play()
-                this.Vibrate()
+                this.Vibrate(id)
             },
 
-            Vibrate(){
-                let element = document.getElementById('Vibration');
+            Vibrate(id){
+                let element = document.getElementById(id);
                 let posX = 0;
                 let posY = 0;
 
@@ -120,10 +120,8 @@ function onDeviceReady() {
                 let id = pokemon.id
                 this.Evolution = this.Description.filter(elem => capacite == elem.Ability_name && elem.id != id)
                 
-                    this.IsEvolution = true
-            
-               console.log(this.Evolution)
-            }  
+                this.IsEvolution = true
+            },
         },
 
         mounted() {

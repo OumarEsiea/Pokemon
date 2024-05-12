@@ -27,19 +27,25 @@
             </div>
             <div class="PokemonStats">
                 <div v-if="PockemonChoisi" class="PokemonCard">
-                    <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi)" id="Vibration"> <br>
+                    <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi,'Vibration')" id="Vibration"> <br>
                     Nom : {{PockemonChoisi.Nom}} <br>
-                    HP : {{PockemonChoisi.HP}} <br>
+                    <span style="font-weight: bold;"> HP : {{PockemonChoisi.HP}} </span> <br>
                     Capacites : {{PockemonChoisi.Capacites}} <br>
-                    Weight : {{PockemonChoisi.Weight}}<br>
+                    <span style="font-weight: bold;"> Weight : {{PockemonChoisi.Weight}} </span><br>
                     Ability : {{PockemonChoisi.Ability_name}} <br>
-                    Id : {{PockemonChoisi.id}}
                 </div>
                    <div v-if="IsEvolution" class="Evolutions">
-                    <span style="color: black;font-weight: bold;">Evolutions</span><br>
+                    <br>
+                    Evolutions : 
                     <ul>
-                        <li v-for="elem in Evolution" @click="PokemonCry(elem)" style="background-color: aqua;">
-                            {{elem.Nom}}
+                        <li v-for="(elem,index) in Evolution" :id="`${index}Evolution`" 
+                        style="border-radius: '10%'; padding: 10px" @click="PokemonCry(elem)">
+                        <!---  :style="{ backgroundColor: elem.color ,'border-radius': '10%', 'padding': '10px'}" 
+                                Marche mais certains pokemeon n'ont pas la propriété qu'il faut>-->
+                                Evolution n° : {{index+1}} <br>
+                                Nom : {{elem.Nom}} <br>
+                                <span style="font-weight: bold;">HP : {{elem.HP}} </span> <br>
+                                <span style="font-weight: bold"> Weight : {{elem.Weight}} </span>
                             <img :src="elem.ImGSrc">
                         </li>
                     </ul>   
