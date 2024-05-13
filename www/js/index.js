@@ -32,7 +32,7 @@ function onDeviceReady() {
                 Description : [],
                 offset:0,
                 ShowDesc : false,
-                isTrue :"",
+                isTrue : false,
                 PockemonChoisi : null,
                 limit : 10,
                 IsEvolution : false,

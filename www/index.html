@@ -35,8 +35,7 @@
                     Ability : {{PockemonChoisi.Ability_name}} <br>
                 </div>
                    <div v-if="IsEvolution" class="Evolutions">
-                    <br>
-                    Evolutions : 
+                    
                     <ul>
                         <li v-for="(elem,index) in Evolution" :id="`${index}Evolution`" 
                         style="border-radius: '10%'; padding: 10px" @click="PokemonCry(elem)">
