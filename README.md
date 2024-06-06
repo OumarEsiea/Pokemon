@@ -16,5 +16,5 @@ Voici un appercu du résultat attendu
 <img src="./Apercu_Enonce.PNG">
 
 ## Lancement du projet :
-Se rendre sur le terminel et taper :
+Se rendre sur le terminal et taper :
         cordova run browser    
