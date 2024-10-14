@@ -81,6 +81,7 @@ function onDeviceReady() {
 
             showDescription(pokemon){
                 this.ShowDesc = true
+                console.log(this.ShowDesc)
                 this.PockemonChoisi = pokemon
                 this.FindEvolution(pokemon)
             },

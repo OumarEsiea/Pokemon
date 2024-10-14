@@ -1,57 +1,60 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' pokeapi.co data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' raw.githubusercontent.com data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
-        <link rel="stylesheet" href="css/index.css">
-        <script src="vue.js"></script>
-        <title>Pokemon</title>
-    </head>
-    <body>
-        <div class="app" id="app">
-            <div class="Pokemon list">
-              <!---  <img src="/www/img/logo.png" class="blink">-->
-                <h1>Apache Cordova <p>{{ message }}</p></h1>
-                <ul>
-                    <li v-for="item in Description" @click="showDescription(item)"> 
-                        <img :src="item.ImGSrc" :alt="item.Nom"/>
-                        {{item.Nom}}
-                    </li>
-                </ul>
-                <button :disabled="isTrue != true" @click="get10PreviousPokemons">10 précédents</button>
-                <button @click="get10nextPokemons">10 prochains</button>
-            </div>
-            <div class="PokemonStats">
-                <div v-if="PockemonChoisi" class="PokemonCard">
-                    <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi,'Vibration')" id="Vibration"> <br>
-                    Nom : {{PockemonChoisi.Nom}} <br>
-                    <span style="font-weight: bold;"> HP : {{PockemonChoisi.HP}} </span> <br>
-                    Capacites : {{PockemonChoisi.Capacites}} <br>
-                    <span style="font-weight: bold;"> Weight : {{PockemonChoisi.Weight}} </span><br>
-                    Ability : {{PockemonChoisi.Ability_name}} <br>
-                </div>
-                   <div v-if="IsEvolution" class="Evolutions">
-                    
+        <head>
+            <meta charset="utf-8">
+            <meta http-equiv="Content-Security-Policy" content="default-src 'self' pokeapi.co data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' raw.githubusercontent.com data: content:;">
+            <meta name="format-detection" content="telephone=no">
+            <meta name="msapplication-tap-highlight" content="no">
+            <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+            <meta name="color-scheme" content="light dark">
+            <link rel="stylesheet" href="css/index.css">
+            <script src="vue.js"></script>
+            <title>Pokemon</title>
+        </head>
+        <body>
+            <div class="app" id="app">
+                <div class="Pokemon list">
+                <!---  <img src="/www/img/logo.png" class="blink">-->
+                    <h1>Apache Cordova <p>{{ message }}</p></h1>
                     <ul>
-                        <li v-for="(elem,index) in Evolution" :id="`${index}Evolution`" 
-                        style="border-radius: '10%'; padding: 10px" @click="PokemonCry(elem)">
-                        <!---  :style="{ backgroundColor: elem.color ,'border-radius': '10%', 'padding': '10px'}" 
-                                Marche mais certains pokemeon n'ont pas la propriété qu'il faut>-->
-                                Evolution n° : {{index+1}} <br>
-                                Nom : {{elem.Nom}} <br>
-                                <span style="font-weight: bold;">HP : {{elem.HP}} </span> <br>
-                                <span style="font-weight: bold"> Weight : {{elem.Weight}} </span>
-                            <img :src="elem.ImGSrc">
+                        <li v-for="item in Description" @click="showDescription(item)"> 
+                            <img :src="item.ImGSrc" :alt="item.Nom"/>
+                            {{item.Nom}}
                         </li>
-                    </ul>   
+                    </ul>
+                    <button :disabled="isTrue != true" @click="get10PreviousPokemons">10 précédents</button>
+                    <button @click="get10nextPokemons">10 prochains</button>
+                </div>
+                <transition name="bounce">
+                <div v-if="ShowDesc == true" class="PokemonStats">
+                    <div v-if="PockemonChoisi" class="PokemonCard">
+                        <img :src="PockemonChoisi.ImgArtwork" @click="PokemonCry(PockemonChoisi,'Vibration')" id="Vibration"> <br>
+                        Nom : {{PockemonChoisi.Nom}} <br>
+                        <span style="font-weight: bold;"> HP : {{PockemonChoisi.HP}} </span> <br>
+                        Capacites : {{PockemonChoisi.Capacites}} <br>
+                        <span style="font-weight: bold;"> Weight : {{PockemonChoisi.Weight}} </span><br>
+                        Ability : {{PockemonChoisi.Ability_name}} <br>
                     </div>
+                    <div v-if="IsEvolution" class="Evolutions">
+                        
+                        <ul>
+                            <li class="card" v-for="(elem,index) in Evolution" 
+                            :id="`${index}Evolution`" @click="PokemonCry(elem)" track-by="$index">
+                            <!---  :style="{ backgroundColor: elem.color ,'border-radius': '10%', 'padding': '10px'}" 
+                                    Marche mais certains pokemeon n'ont pas la propriété qu'il faut>-->
+                                    <span class="index">{{index+1}}</span>
+                                    Evolution n° : {{index+1}} <br>
+                                    Nom : {{elem.Nom}} <br>
+                                    <span style="font-weight: bold;">HP : {{elem.HP}} </span> <br>
+                                    <span style="font-weight: bold"> Weight : {{elem.Weight}} </span>
+                                <img :src="elem.ImGSrc">
+                            </li>
+                        </ul>   
+                        </div>
+                </div>
+            </transition>
             </div>
-        </div>
-        <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
-    </body>
-</html>
+            <script src="cordova.js"></script>
+            <script src="js/index.js"></script>
+        </body>
+    </html>
